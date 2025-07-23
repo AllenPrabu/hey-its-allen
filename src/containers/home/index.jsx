@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
-import { Animate } from 'react-simple-animate'
+// import { Animate } from 'react-simple-animate'
 import './styles.scss';
 import TextType from './TextType';
 
@@ -8,12 +8,6 @@ const Home = () => {
 
     const navigate = useNavigate();
     console.log(navigate);
-
-    const handleNavigateToContactMePage = () => {
-
-        navigate('/contact')
-
-    }
 
     return (
         <section id='home' className="home">
@@ -54,24 +48,7 @@ const Home = () => {
                     />
                 </div>
             </div>
-            <Animate
-                play
-                duration={1.5}
-                delay={1}
-                start={{
-                    transform: 'translateY(550px)'
-                }}
-
-                end={{
-                    transform: 'translateY(0px)'
-                }}
-            >
-
-                <div className="home__contact-me">
-                    <button onClick={handleNavigateToContactMePage}>Hire Me</button>
-                </div>
-            </Animate>
-
+            
         </section>
 
     )
