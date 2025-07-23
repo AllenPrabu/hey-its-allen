@@ -7,7 +7,11 @@
     --yellow-theme-nav-background-color : #181818;
     --yellow-theme-nav-text-color : #ffffff;
     --yellow-theme-main-button-color: #181818;
+    --neon-green: #39ff14;
        
+}
+body, body * {
+    color: var(--neon-green) !important;
 }
 
 *{

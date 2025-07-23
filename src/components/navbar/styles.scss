@@ -7,6 +7,7 @@
     font-size: 1.2rem;
     position: sticky;
     z-index: 1000;
+    color: #39ff14;
 
     &__container {
         display: flex;
@@ -92,4 +93,9 @@
         color: var(--yellow-theme-main-color);
         padding-right: 20px;
     }
+}
+
+.navbar,
+.navbar * {
+    color: #39ff14 !important; // neon green for all navbar text
 }
