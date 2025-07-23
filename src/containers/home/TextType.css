@@ -1,0 +1,19 @@
+.text-type {
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.text-type__line {
+  white-space: pre-wrap; /* preserve spaces */
+}
+
+.text-type__cursor {
+  display: inline-block;
+  margin-left: 2px;
+  opacity: 1; /* GSAP will animate */
+}
+
+.text-type__cursor--hidden {
+  visibility: hidden;
+  opacity: 0;
+}

@@ -7,20 +7,14 @@
     flex-direction: column;
 
     &__text-wrapper{
+        position: absolute;
+        top: 60px;      // Move down from the top
+        left: 120px;    // Move further right
+        width: 900px;   // Make wider for bigger text
+        height: 300px;  // Make taller for bigger text
         display: flex;
-        justify-content: center;
-
-        h1{
-            color: black;
-            margin: 0px;
-            font-weight: 500;
-            font-size: 8rem; 
-            line-height: 10rem;
-            position: relative;
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typingEffectAnimation 2.5s steps(20,end);
-        }
+        flex-direction: column;    // <-- Add this line
+        align-items: flex-start;
     }
  
     &__contact-me{
@@ -47,6 +41,12 @@
     }
 }
 
+.big-typing-text {
+    font-size: 6rem;      // Adjust this value for desired size
+    line-height: 1.1;
+    font-weight: bold;
+}
+
 @media only screen and (max-width : 550px) {
 
     .home__text-wrapper h1{
@@ -56,19 +56,10 @@
 }
 
 @media only screen and (min-width : 551px) and (max-width : 768px) {
-    
-    .home__text-wrapper h1{
-        font-size: 4rem;
-        line-height: 6rem;
-    }
+
 }
 
 @media only screen and (min-width : 769px) and (max-width : 990px) {
-    
-    .home__text-wrapper h1{
-        font-size: 6rem;
-        line-height: 8rem;
-    }
 }
 
 @keyframes typingEffectAnimation{

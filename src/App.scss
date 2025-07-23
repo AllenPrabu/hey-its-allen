@@ -1,6 +1,48 @@
-.App{
+.App {
     height: 100%;
-    &__main-page-content{
+
+    &__main-page-content {
         height: calc(100% - 80px);
     }
+}
+
+body {
+    background: #000;
+    color: #0f0;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+    overflow: hidden;
+}
+
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(to bottom,
+            rgba(0, 255, 0, 0.07),
+            rgba(0, 255, 0, 0.07) 1px,
+            transparent 1px,
+            transparent 3px);
+    mix-blend-mode: overlay; // makes it blend better
+}
+
+
+@keyframes crtFlicker {
+
+    0%,
+    100% {
+        opacity: 0.97;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+body {
+    animation: crtFlicker 0.15s infinite;
 }

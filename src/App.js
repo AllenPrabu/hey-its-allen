@@ -1,7 +1,6 @@
 import './App.scss';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Particles from "react-tsparticles";
-import { loadFull } from 'tsparticles';
+
 import Home from './containers/home';
 import Portfolio from './containers/portfolio';
 import Resume from './containers/resume';
@@ -9,33 +8,22 @@ import Contact from './containers/contact';
 import About from './containers/about';
 import Skills from './containers/skills';
 import Navbar from './components/navbar';
-import particles from './utils.js/particles';
 
+// 🔁 NEW COMPONENT for scrolling terminal background
+import CrtBackground from './utils.js/CrtBackground';
 
 function App() {
-
   const location = useLocation();
-  console.log(location);
+  const renderCrtInHomePage = location.pathname === "/";
 
-  const renderparticleJsInHomePage = location.pathname === "/";
-
-  const handleInit = async (main) => {
-    await loadFull(main)
-  }
   return (
     <div className="App">
-      {/* particles js */}
+      {/* Background */}
+      {renderCrtInHomePage && <CrtBackground />}
+      {renderCrtInHomePage && <div className="crt-overlay" />}
 
-      {
-        renderparticleJsInHomePage &&
-        <Particles id="particles" options={particles} init={handleInit} />
-
-      }
-
-      {/* navbar */}
       <Navbar />
 
-      {/* Mainpage content */}
       <div className='App__main-page-content'>
         <Routes>
           <Route path='/' element={<Home />} />
@@ -46,10 +34,9 @@ function App() {
           <Route path='/skills' element={<Skills />} />
         </Routes>
       </div>
-
-
     </div>
   );
 }
+
 console.log("App loaded");
-export default App
+export default App;
