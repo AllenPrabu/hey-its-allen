@@ -6,12 +6,12 @@
     height: 100%;
     display: flex;
     // NEW: Changed 'center' to 'flex-start' to align content to the left.
-    justify-content: flex-start; 
+    justify-content: flex-start;
     // NEW: Changed 'center' to 'flex-start' to align content to the top.
-    align-items: flex-start; 
+    align-items: flex-start;
     flex-direction: column;
     // The padding will give it some space from the edges.
-    padding: 80px 80px; 
+    padding: 80px 80px;
 
     &__text-wrapper {
         width: 100%;
@@ -51,14 +51,19 @@
 }
 
 // Media queries remain the same
-@media only screen and (max-width : 550px) {
+@media only screen and (max-width : 768px) {
     .home {
-        padding: 20px; // Adjust padding for smaller screens
+        padding: 30px;
+        // NEW: Increased top padding for mobile view
+        padding-top: 60px; 
+        // NEW: Also apply padding here for mobile
     }
+
     .home__text-wrapper h1 {
         font-size: 3rem;
         line-height: 5rem;
     }
+
     .big-typing-text {
         font-size: 3rem;
     }
@@ -68,6 +73,7 @@
     from {
         width: 0;
     }
+
     to {
         width: 100%;
     }

@@ -6,6 +6,9 @@
     width: 100%;
     height: 100%;
     padding: 80px 80px;
+    // NEW: Added padding and overflow for scrolling
+    padding-bottom: 240px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -91,7 +94,11 @@
 // Responsive adjustments
 @media only screen and (max-width: 768px) {
     .portfolio {
-        padding: 20px;
+        padding: 30px;
+        // NEW: Increased top padding for mobile view
+        padding-top: 60px; 
+        // NEW: Also apply padding here for mobile
+        padding-bottom: 240px;
 
         &__content {
             &__header {

@@ -14,7 +14,7 @@
     &__content {
         width: 100%;
         max-width: 800px; // Constrain the form width for readability
-        
+
         &__header {
             font-size: 6rem; // Same large size as home page
             line-height: 1.1;
@@ -81,21 +81,28 @@
 // Responsive adjustments
 @media only screen and (max-width: 768px) {
     .contact {
-        padding: 20px;
+        padding: 30px;
+        // NEW: Increased top padding for mobile view
+        padding-top: 60px; 
+        // NEW: Also apply padding here for mobile
 
         &__content {
             &__header {
                 font-size: 3rem;
             }
+
             &__form {
                 &__control {
                     label {
                         font-size: 1.2rem;
                     }
-                    input, textarea {
+
+                    input,
+                    textarea {
                         font-size: 1rem;
                     }
                 }
+
                 .submit-button {
                     font-size: 1.2rem;
                     width: 100%;
