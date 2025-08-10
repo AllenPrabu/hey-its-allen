@@ -1,68 +1,61 @@
 import React from "react";
-import { BsInfoCircleFill } from "react-icons/bs";
-import PageHeaderContent from "../../components/pageheadercontent"
+import { motion } from "framer-motion";
+import TextType from "../../containers/home/TextType"; // Assuming path
 import { skillsData } from "./utils";
-import { Animate, AnimateKeyframes } from "react-simple-animate";
-import { Line } from "rc-progress";
-import './styles.scss';
+import "./styles.scss";
+
+const pageVariants = {
+  initial: { opacity: 0, y: "100vh" },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: "-100vh" },
+};
+
+// Helper component to render the ASCII-style progress bar
+const AsciiBar = ({ percentage }) => {
+  const totalChars = 20; // Total length of the bar
+  const filledChars = Math.round((percentage / 100) * totalChars);
+  const emptyChars = totalChars - filledChars;
+
+  const bar = '█'.repeat(filledChars) + '░'.repeat(emptyChars);
+  return <span className="skill-item__bar">[{bar}]</span>;
+};
 
 const Skills = () => {
-    return (
-        <section id='skills' className="skills">
-            <PageHeaderContent
-                headerText="Skills"
-                icon={<BsInfoCircleFill size={40} />}
-            />
-            <div className="skills__content-wrapper">
-                {
-                    skillsData.map((item, i) => (
-                        <div key={i} className="skills__content-wrapper__inner-content">
-                            <Animate
-                                play
-                                duration={1}
-                                delay={0.3}
-                                start={{
-                                    transform: 'translateX(-200px)'
-                                }}
+  return (
+    <motion.section
+      id="skills"
+      className="skills"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={{ duration: 0.7, ease: "easeInOut" }}
+    >
+      <div className="skills__content">
+        <TextType
+          text="Skills Analysis"
+          typingSpeed={75}
+          className="skills__content__header"
+          hideCursorAfterTyping={true}
+        />
 
-                                end={{
-                                    transform: 'translateX(0px)'
-                                }}
-                            >
-                                <h3 className="skills__content-wrapper__inner-content__category-text">{item.label}</h3>
-                                <div className="skills__content-wrapper__inner-content__progressbar-container">
-                                    {item.data.map((skillsItem, j) => (
-                                        <AnimateKeyframes
-                                            play
-                                            duration={1}
-                                            keyframes={["opacity:1", "opacity:0"]}
-                                            iterationCount="1"
-                                            key={j}
-                                        >
-                                            <div className="progressbar-wrapper" >
-                                                <p>{skillsItem.skillName}</p>
-                                                <Line
-                                                    percent={skillsItem.percentage}
-                                                    strokeWidth="3"
-                                                    strokeColor="var(--yellow-theme-main-color)"
-                                                    trailWidth={"3"}
-                                                    strokeLinecap="square"
-                                                />
-
-                                            </div>
-
-                                        </AnimateKeyframes>
-                                    ))}
-                                </div>
-
-                            </Animate>
-                        </div>
-                    ))
-                }
-
+        {skillsData.map((item, i) => (
+          <div className="skill-category" key={i}>
+            <h2 className="skill-category__title">## {item.label}</h2>
+            <div className="skill-category__list">
+              {item.data.map((skillItem, j) => (
+                <div className="skill-item" key={j}>
+                  <span className="skill-item__name">{skillItem.skillName}</span>
+                  <AsciiBar percentage={skillItem.percentage} />
+                  <span className="skill-item__percentage">{skillItem.percentage}%</span>
+                </div>
+              ))}
             </div>
-        </section>
-    )
-}
+          </div>
+        ))}
+      </div>
+    </motion.section>
+  );
+};
 
 export default Skills;

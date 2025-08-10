@@ -1,97 +1,96 @@
-.resume{
-    height: 100%;
-}
-
-.timeline{
-    display: flex;
+.resume {
+    // This positioning is essential for the page transition animation
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 20px;
+    height: 100%;
+    padding: 80px 80px;
+    // NEW: Added padding to the bottom to account for the fixed navbar
+    padding-bottom: 240px; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto; // Allow scrolling for long resumes
 
-    &__experience, &__education{
-        width: 50%;
-        gap: 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    &__content {
+        width: 100%;
 
-        &__header-text{
-            display: inline-block;
-            color: var(--yellow-theme-sub-text-color);
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 1rem;
-            letter-spacing: 0.5px;
-            position: relative;
-            text-transform: uppercase;
-            padding: 5px 10px;
-            border-bottom: 2px solid var(--yellow-theme-main-color);
+        &__header {
+            font-size: 6rem;
+            line-height: 1.1;
+            font-weight: bold;
+            margin-bottom: 40px;
         }
 
-        &__header-text::before , &__header-text::after{
-            position: absolute;
-            content: '';
-            width: 2px;
-            height: 5px;
-            background-color: var(--yellow-theme-main-color);
-            bottom: -1px;
-        }
+        &__section {
+            margin-bottom: 40px;
 
-        &__header-text::before{
-            left: 0;
-        }
-
-        &__header-text::after{
-            right: 0;
-        }
-
-        &__vertical-timeline-element{
-            padding: 0px 0px 30px 0px;
-
-            &:last-child{
-                padding-bottom: 0px;
-            }
-        }
-        .vertical-timeline-element-title-wrapper{
-            display: flex;
-            align-items: center;
-
-            h3,h4{
-                font-size: 16px;
+            .section-title {
+                font-size: 2.5rem;
+                font-weight: 700;
+                margin-bottom: 20px;
+                border-bottom: 2px solid var(--terminal-green);
+                padding-bottom: 10px;
+                display: inline-block;
             }
 
-            h4{
-                margin-left: 8px;
+            .resume-item {
+                margin-bottom: 25px;
+                padding-left: 20px;
+
+                &__title {
+                    font-size: 1.8rem;
+                    font-weight: 700;
+                    margin-bottom: 5px;
+                }
+
+                &__subtitle {
+                    font-size: 1.2rem;
+                    opacity: 0.7;
+                    margin-bottom: 10px;
+                    font-style: italic;
+                }
+
+                &__description {
+                    font-size: 1.2rem;
+                    line-height: 1.6;
+                    opacity: 0.9;
+                }
             }
-
-
-        }
-
-        .vertical-timeline-element-title-wrapper-description{
-            font-size: 18px;
-        }
-
-        .vertical-timeline-element-content{
-            box-shadow: none;
-        }
-
-        .vertical-timeline-element-content-arrow{
-            display: none;
-        }
-
-        .vertical-timeline-element-date{
-            opacity: 1;
-            color: var(--yellow-theme-sub-text-color);
-            font-size: 18px;
         }
     }
 }
 
-@media only screen and (max-width : 768px){
-    .timeline{
-        flex-direction: column;
-        &__experience, &__education{
-            width: 100%;
-            gap: 2rem;
+// Responsive adjustments
+@media only screen and (max-width: 768px) {
+    .resume {
+        padding: 20px;
+        // NEW: Also apply padding here for mobile
+        padding-bottom: 240px;
+
+        &__content {
+            &__header {
+                font-size: 3rem;
+            }
+
+            &__section {
+                .section-title {
+                    font-size: 1.8rem;
+                }
+
+                .resume-item {
+                    padding-left: 10px;
+
+                    &__title {
+                        font-size: 1.2rem;
+                    }
+                    &__subtitle, &__description {
+                        font-size: 1rem;
+                    }
+                }
+            }
         }
     }
 }

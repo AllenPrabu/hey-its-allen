@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+// Make sure BrowserRouter is imported here
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import {BrowserRouter as Router} from 'react-router-dom';
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router>
+    {/* By wrapping <App /> here, the entire application has access to the router */}
+    <BrowserRouter>
       <App />
-    </Router>
+    </BrowserRouter>
   </React.StrictMode>
 );
-

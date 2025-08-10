@@ -1,75 +1,77 @@
 import React from "react";
-import PageHeaderContent from "../../components/pageheadercontent";
-import { BsInfoCircleFill } from "react-icons/bs";
-import { Animate } from "react-simple-animate";
+import { motion } from "framer-motion";
+import TextType from "../../containers/home/TextType"; // Assuming path to your TextType component
 import "./styles.scss";
+
+// Define the animation variants for the page transition
+const pageVariants = {
+    initial: {
+        opacity: 0,
+        y: "100vh"
+    },
+    animate: {
+        opacity: 1,
+        y: 0
+    },
+    exit: {
+        opacity: 0,
+        y: "-100vh"
+    }
+};
 
 const Contact = () => {
   return (
-    <section id="contact" className="contact">
-      <PageHeaderContent
-        headerText="contact"
-        icon={<BsInfoCircleFill size={40} />}
-      />
+    <motion.section
+      id="contact"
+      className="contact"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={pageVariants}
+      transition={{ duration: 0.7, ease: "easeInOut" }}
+    >
       <div className="contact__content">
-        <Animate
-          play
-          duration={1}
-          delay={0}
-          start={{ transform: "translateX(-200px)" }}
-          end={{ transform: "translateX(0px)" }}
-        >
-          <h3 className="contact__content__header-text">Let's Talk</h3>
-        </Animate>
-
-        <Animate
-          play
-          duration={1}
-          delay={0}
-          start={{ transform: "translateX(200px)" }}
-          end={{ transform: "translateX(0px)" }}
-        >
-          <div className="contact__content__form">
-            <div className="contact__content__form__controlswrapper">
-              <div>
-                <input
-                  required
-                  name="name"
-                  className="inputName"
-                  type={"text"}
-                />
-                <label htmlFor="name" className="nameLabel">
-                  Name
-                </label>
-              </div>
-              <div>
-                <input
-                  required
-                  name="email"
-                  className="inputEmail"
-                  type={"text"}
-                />
-                <label htmlFor="email" className="emailLabel">
-                  Email
-                </label>
-              </div>
-              <div>
-                <textarea
-                  required
-                  name="description"
-                  className="inputDescription"
-                  rows="5"
-                />
-                <label htmlFor="description" className="descriptionLabel">
-                  Description
-                </label>
-              </div>
-            </div>
-            <button>Submit</button>
+        <TextType
+          text="Contact Me"
+          typingSpeed={75}
+          className="contact__content__header"
+          hideCursorAfterTyping={true}
+        />
+        
+        <div className="contact__content__form">
+          <div className="contact__content__form__control">
+            <label htmlFor="name">Name:</label>
+            <input
+              required
+              name="name"
+              id="name"
+              type="text"
+            />
           </div>
-        </Animate>
+          <div className="contact__content__form__control">
+            <label htmlFor="email">Email:</label>
+            <input
+              required
+              name="email"
+              id="email"
+              type="email"
+            />
+          </div>
+          <div className="contact__content__form__control">
+            <label htmlFor="description">Message:</label>
+            <textarea
+              required
+              name="description"
+              id="description"
+              rows="5"
+            />
+          </div>
+          <button className="submit-button">
+            Send Message &gt;
+          </button>
+        </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

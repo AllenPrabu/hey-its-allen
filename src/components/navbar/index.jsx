@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { FaBars, FaReact } from 'react-icons/fa';
-import { HiX } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import './styles.scss';
 
-const data = [
+const navData = [
     { label: "Home", to: '/' },
     { label: "About", to: '/about' },
     { label: "Portfolio", to: '/portfolio' },
@@ -13,69 +11,110 @@ const data = [
     { label: "Contact", to: '/contact' }
 ];
 
-const Navbar = () => {
-    const [toggleIcon, setToggleIcon] = useState(false);
+const basePath = "C:\\Users\\allen\\Portfolio";
 
-    const handleToggleIcon = () => {
-        setToggleIcon(!toggleIcon);
+const Navbar = ({ onNavigate }) => {
+    const [lines, setLines] = useState([]);
+    const [isAnimating, setIsAnimating] = useState(false);
+    const [isReady, setIsReady] = useState(false);
+    const terminalEndRef = useRef(null);
+    const location = useLocation();
+
+    const addLine = (text) => {
+        setLines(prev => [...prev, text]);
     };
 
+    useEffect(() => {
+        const initializeTerminal = async () => {
+            await new Promise(resolve => setTimeout(resolve, 500));
+            addLine(`PS ${basePath}\\..> cd Portfolio`);
+            await new Promise(resolve => setTimeout(resolve, 300));
+            addLine(`PS ${basePath}>`);
+            await new Promise(resolve => setTimeout(resolve, 200));
+            setIsReady(true);
+        };
+
+        initializeTerminal();
+    }, []);
+
+    const handleNavClick = async (label, to) => {
+        if (isAnimating || !isReady) return;
+
+        setIsAnimating(true);
+        setLines([]);
+
+        const executingLines = [
+            `PS ${basePath}${location.pathname.replace(/\//g, '\\')}> execute ./${label.toLowerCase()}`,
+            `Executing command...`,
+            `Initializing virtual DOM...`,
+            `Compiling modules...`,
+            `Rendering component...`,
+            `Success.`
+        ];
+
+        for (const line of executingLines) {
+            addLine(line);
+            await new Promise(resolve => setTimeout(resolve, 100));
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 200));
+        onNavigate(to);
+        await new Promise(resolve => setTimeout(resolve, 400));
+        
+        setLines([`PS ${basePath}${to.replace(/\//g, '\\')}>`]);
+        setIsAnimating(false);
+    };
+    
+    useEffect(() => {
+        if (terminalEndRef.current) {
+            terminalEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [lines]);
+
     return (
-        <div>
-            <nav className="navbar">
-                <div className="navbar__container">
-                    {/* Logo on top-right */}
-                    <div className="navbar__container__logo">
-                        <FaReact size={30} />
-                    </div>
-
-                    {/* Top Tab Bar */}
-                    <div className="tab-bar">
-                        <span>PROBLEMS</span>
-                        <span>OUTPUT</span>
-                        <span>DEBUG CONSOLE</span>
-                        <span className="active-tab">TERMINAL</span>
-                        <span>PORTS</span>
-                        <span>GITLENS</span>
-                        <span>ESP-IDF</span>
-                    </div>
-
-                    {/* Terminal line: executed command */}
-                    <div className="terminal-line">
-                        <span className="terminal-prefix">PS </span>
-                        <span className="terminal-command">C:\Users\allen\OneDrive\Desktop\College\Projects\Portfolio_website: ls</span>
-                    </div>
-
-                    {/* Terminal "directory" lines - links */}
-                    <ul className={`navbar__container__menu ${toggleIcon ? "active" : ""}`}>
-                        {data.map((item, key) => (
-                            <li key={key} className="terminal-line">
-                                <Link
-                                    to={item.to}
-                                    onClick={() => setToggleIcon(false)}
-                                    className="terminal-link full-line"
-                                >
-                                    <span className="terminal-prefix">$</span>
-                                    <span>{item.label}</span>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-
-                    {/* Final blinking prompt */}
-                    <div className="terminal-line">
-                        <span className="terminal-prefix">PS C:\Users\allen\OneDrive\Desktop\College\Projects\Portfolio_website:</span>
-                        <span className="blinking-cursor">█</span>
-                    </div>
-
-                    {/* Toggle button */}
-                    <div className="nav-icon" onClick={handleToggleIcon}>
-                        {toggleIcon ? <HiX size={30} /> : <FaBars size={30} />}
-                    </div>
+        <nav className="navbar">
+            <div className="navbar__container">
+                {/* NEW: Added the extra tabs */}
+                <div className="tab-bar">
+                    <span>PROBLEMS</span>
+                    <span>OUTPUT</span>
+                    <span>DEBUG CONSOLE</span>
+                    <span className="active-tab">TERMINAL</span>
+                    <span>PORTS</span>
+                    <span>GITLENS</span>
+                    <span>ESP-IDF</span>
                 </div>
-            </nav>
 
-        </div>
+                <div className="terminal-output">
+                    {lines.map((line, index) => (
+                        <div key={index} className="terminal-line">
+                            <span>{line}</span>
+                        </div>
+                    ))}
+
+                    {isReady && !isAnimating && (
+                        <>
+                            {navData.map((item, key) => (
+                                <div key={key} className="terminal-line">
+                                    <button
+                                        onClick={() => handleNavClick(item.label, item.to)}
+                                        className="terminal-link"
+                                    >
+                                        <span className="terminal-prefix">$</span>
+                                        <span>{item.label}</span>
+                                    </button>
+                                </div>
+                            ))}
+                            <div className="terminal-line">
+                                <span>PS {basePath}{location.pathname.replace(/\//g, '\\')}</span>
+                                <span className="blinking-cursor">█</span>
+                            </div>
+                        </>
+                    )}
+                    <div ref={terminalEndRef} />
+                </div>
+            </div>
+        </nav>
     );
 };
 

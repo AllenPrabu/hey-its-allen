@@ -1,72 +1,102 @@
-.skills{
+.skills {
+    // This positioning is essential for the page transition animation
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 80px 80px;
+    // NEW: Added padding to the bottom to account for the fixed navbar
+    padding-bottom: 240px; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto; // Allow scrolling
 
-    &__content-wrapper{
-        display: flex;
-        padding: 20px;
-        gap: 20px;
+    &__content {
+        width: 100%;
 
-        &__inner-content{
-            flex:1;
-            display:flex;
+        &__header {
+            font-size: 6rem;
+            line-height: 1.1;
+            font-weight: bold;
+            margin-bottom: 40px;
+        }
+    }
+
+    .skill-category {
+        margin-bottom: 40px;
+        width: 100%;
+
+        &__title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--terminal-green);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        &__list {
+            display: flex;
             flex-direction: column;
-            align-items: center;
+            gap: 15px;
+        }
+    }
 
-            &__category-text{
-                display:inline-block;
-                color:var(--yellow-theme-main-color);
-                font-size: 22px;
-                font-weight: 700;
-                line-height: 1rem;
-                letter-spacing: 0.5px;
-                position: relative;
-                text-transform: uppercase;
-                padding: 5px 10px;
-                border-bottom: 2px solid var(--yellow-theme-main-color);
-            }
+    .skill-item {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-family: 'Courier New', Courier, monospace;
 
-            &__category-text::before, &__category-text::after{
-                position: absolute;
-                content: '';
-                width: 2px;
-                height: 6px;
-                background-color:var(--yellow-theme-main-color);
-                bottom: -1px;
-            }
-            
-            &__category-text::before{
-                left: 0;
-            }
-            &__category-text::after{
-                right: 0;
-            }
+        &__name {
+            min-width: 250px; // Aligns the bars
+            font-weight: 700;
+        }
 
-            &__progressbar-container{
-                width: 100%;
-            }
+        &__bar {
+            margin: 0 20px;
+            letter-spacing: 2px; // Adds a bit of space between bar characters
+        }
 
-            .progressbar-wrapper{
-                padding: 50px 0px 0px 0px;               
-                
-                p{
-                    font-size: 1.6rem;
-                    margin: 0 0 10px;
-                    font-weight: 500;
-                    text-transform: uppercase;
-                    color: var(--yellow-theme-sub-text-color);
-                }
-            }
+        &__percentage {
+            opacity: 0.8;
         }
     }
 }
 
-@media only screen and (max-width: 768px){
-    .skills{
-        &__content-wrapper{
-            flex-direction: column;
-        }
-    }
+// Responsive adjustments
+@media only screen and (max-width: 768px) {
+    .skills {
+        padding: 20px;
+        padding-bottom: 240px; // Also apply padding here for mobile
 
-    .skills__content-wrapper__inner-content__progressbar-container{
-        margin-bottom: 20px;
+        &__content {
+            &__header {
+                font-size: 3rem;
+            }
+        }
+
+        .skill-category {
+            &__title {
+                font-size: 1.8rem;
+            }
+        }
+
+        .skill-item {
+            font-size: 1rem;
+            flex-wrap: wrap; // Allow items to wrap on small screens
+
+            &__name {
+                min-width: 100%;
+                margin-bottom: 5px;
+            }
+
+            &__bar {
+                margin: 0 0 5px 0;
+            }
+        }
     }
 }

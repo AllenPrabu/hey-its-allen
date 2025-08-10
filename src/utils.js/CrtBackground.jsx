@@ -4,7 +4,7 @@ import './CrtBackground.scss';
 const CrtBackground = () => {
   return (
     <div className="crt-background">
-      <div className="vignette" />
+      <div className="crt-overlay" />
     </div>
   );
 };
