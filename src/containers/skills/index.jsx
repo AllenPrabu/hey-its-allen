@@ -12,7 +12,7 @@ const pageVariants = {
 
 // Helper component to render the ASCII-style progress bar
 const AsciiBar = ({ percentage }) => {
-  const totalChars = 20; // Total length of the bar
+  const totalChars = 30; // Increased length for better visual effect
   const filledChars = Math.round((percentage / 100) * totalChars);
   const emptyChars = totalChars - filledChars;
 
@@ -39,20 +39,22 @@ const Skills = () => {
           hideCursorAfterTyping={true}
         />
 
-        {skillsData.map((item, i) => (
-          <div className="skill-category" key={i}>
-            <h2 className="skill-category__title">## {item.label}</h2>
-            <div className="skill-category__list">
-              {item.data.map((skillItem, j) => (
-                <div className="skill-item" key={j}>
-                  <span className="skill-item__name">{skillItem.skillName}</span>
-                  <AsciiBar percentage={skillItem.percentage} />
-                  <span className="skill-item__percentage">{skillItem.percentage}%</span>
-                </div>
-              ))}
+        <div className="skills__content__categories">
+          {skillsData.map((item, i) => (
+            <div className="skill-category" key={i}>
+              <h2 className="skill-category__title">## {item.label}</h2>
+              <div className="skill-category__list">
+                {item.data.map((skillItem, j) => (
+                  <div className="skill-item" key={j}>
+                    <span className="skill-item__name">{skillItem.skillName}</span>
+                    <AsciiBar percentage={skillItem.percentage} />
+                    <span className="skill-item__percentage">{skillItem.percentage}%</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </motion.section>
   );

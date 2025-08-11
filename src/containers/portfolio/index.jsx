@@ -79,6 +79,8 @@ const Portfolio = () => {
               <span className="date">Aug 10</span>
               <a href={item.link || "#"} target="_blank" rel="noreferrer" className="filename">
                 {item.name}
+                {/* NEW: Changed the arrow */}
+                <span className="click-arrow">&lt;--</span>
               </a>
             </div>
           ))}
